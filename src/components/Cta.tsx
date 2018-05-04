@@ -2,11 +2,12 @@ import React from 'react';
 import { Button, Col, Icon, Row } from 'antd';
 
 import styled from 'styled-components';
-import MarketSubscriberForm from '@components/MarketSubscriberForm';
-import { MarketText } from '@src/Styles';
-import { device } from '@src/breakpoints';
+import MarketSubscriberForm from './MarketSubscriberForm';
+import { MarketText } from '../Styles';
+import { device } from '../breakpoints';
+import EmailConstant from '../constants/email';
 
-const SectionWrapper = styled.section`
+export const SectionWrapper = styled.section`
   background: #f0f0f0;
 
   @media ${device.mobileS} {
@@ -27,52 +28,52 @@ const PartnersEmail = {
   subject: 'Partnership%20with%20MARKET%20Protocol'
 };
 
-class Cta extends React.Component {
-  render() {
-    return (
-      <SectionWrapper id="subscribe">
-        <Row type="flex" align="middle">
-          <Col
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            style={{ padding: '0 20px', marginTop: '70px' }}
+const emailLink = `mailto:${EmailConstant.PARTNERS_EMAIL.email}?subject=${
+  EmailConstant.PARTNERS_EMAIL.subject
+}&body=${EmailConstant.PARTNERS_EMAIL.body}`;
+
+const Cta = () => {
+  return (
+    <SectionWrapper id="subscribe">
+      <Row type="flex" align="middle">
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          style={{ padding: '0 20px', marginTop: '70px' }}
+        >
+          <MarketSubscriberForm
+            title="Join our Newsletter"
+            hint="Enter your email here"
+          />
+        </Col>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          style={{ padding: '0 20px', marginTop: '40px' }}
+        >
+          <MarketText style={{ fontSize: '24px', marginBottom: '30px' }}>
+            Become a Partner
+          </MarketText>
+          <Button
+            href={emailLink}
+            type="primary"
+            style={{ width: '100%', textAlign: 'left' }}
           >
-            <MarketSubscriberForm
-              title="Join our Newsletter"
-              hint="Enter your email here"
+            Email Us{' '}
+            <Icon
+              type="arrow-right"
+              style={{ position: 'absolute', top: '35%', right: '15px' }}
             />
-          </Col>
-          <Col
-            xs={24}
-            sm={24}
-            md={12}
-            lg={12}
-            xl={12}
-            style={{ padding: '0 20px', marginTop: '40px' }}
-          >
-            <MarketText style={{ fontSize: '24px', marginBottom: '30px' }}>
-              Become a Partner
-            </MarketText>
-            <Button
-              href={`mailto:${PartnersEmail.email}?subject=${
-                PartnersEmail.subject
-              }&body=${PartnersEmail.body}`}
-              type="primary"
-              style={{ width: '100%', textAlign: 'left' }}
-            >
-              Email Us{' '}
-              <Icon
-                type="arrow-right"
-                style={{ position: 'absolute', top: '35%', right: '15px' }}
-              />
-            </Button>
-          </Col>
-        </Row>
-      </SectionWrapper>
-    );
-  }
-}
+          </Button>
+        </Col>
+      </Row>
+    </SectionWrapper>
+  );
+};
 export default Cta;
